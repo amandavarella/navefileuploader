@@ -78,4 +78,4 @@ def mask_json_file(input_path, output_path):
 
 # Example usage
 if __name__ == "__main__":
-    mask_json_file("sample.json", "masked_sample.json")
+    mask_json_file("issue.json", "masked_sample.json")
