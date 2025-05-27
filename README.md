@@ -32,7 +32,7 @@ Before running any scripts, create a `.env` file in the project root with your c
    JIRA_API_TOKEN=your_token
 
    # Nave Configuration
-   NAVE_API_URL=your_nave_url
+   NAVE_API_URL=https://file.getnave.com/api/dashboards/update
    NAVE_API_KEY=your_api_key
    NAVE_DASHBOARD_ID=your_dashboard_id
    ```
@@ -96,22 +96,12 @@ This mode automatically fetches data from JIRA, masks it, and sends it directly 
    pip install requests
    ```
 
-2. **Configure the script**:
-   - Open `jira_processor.py`
-   - Update the configuration variables at the top:
-     - `JIRA_URL`: Your JIRA board URL
-     - `JIRA_USERNAME`: Your JIRA email
-     - `JIRA_API_TOKEN`: Your JIRA API token
-     - `TARGET_API_URL`: Nave's API endpoint (https://file.getnave.com/api/dashboards/update)
-     - `TARGET_API_KEY`: Your Nave API key
-     - `DASHBOARD_ID`: Your Nave dashboard ID
-
-3. **Run the processor**:
+2. **Run the processor**:
    ```bash
    python3 jira_processor.py
    ```
 
-4. **Set up automation** (optional):
+3. **Set up automation** (optional):
    To run the script daily, add it to your crontab:
    ```bash
    crontab -e
