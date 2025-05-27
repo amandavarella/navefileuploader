@@ -44,6 +44,32 @@ This project provides two main functionalities to mask sensitive data from JIRA 
    source ~/.zshrc
    ```
 
+### Environment Configuration
+
+Before running any scripts, create a `.env` file in the project root with your credentials. You can use the provided `.env.example` as a template:
+
+1. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Fill in your actual Jira and Nave credentials in the `.env` file:
+   ```
+   # JIRA Configuration
+   JIRA_URL=your_jira_url
+   JIRA_USERNAME=your_username
+   JIRA_API_TOKEN=your_token
+
+   # Nave Configuration
+   NAVE_API_URL=https://file.getnave.com/api/dashboards/update
+   NAVE_API_KEY=your_api_key
+   NAVE_DASHBOARD_ID=your_dashboard_id
+   ```
+
+**Note:**
+- Never commit your `.env` file to version control.
+- Only share `.env.example` with placeholder values.
+
 ### Usage
 
 After installation, you can use the command-line tools:
@@ -73,32 +99,6 @@ processor = JiraProcessor(
 )
 processor.process_jira_data()
 ```
-
-## ⚙️ Environment Configuration
-
-Before running any scripts, create a `.env` file in the project root with your credentials. You can use the provided `.env.example` as a template:
-
-1. Copy `.env.example` to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Fill in your actual Jira and Nave credentials in the `.env` file:
-   ```
-   # JIRA Configuration
-   JIRA_URL=your_jira_url
-   JIRA_USERNAME=your_username
-   JIRA_API_TOKEN=your_token
-
-   # Nave Configuration
-   NAVE_API_URL=https://file.getnave.com/api/dashboards/update
-   NAVE_API_KEY=your_api_key
-   NAVE_DASHBOARD_ID=your_dashboard_id
-   ```
-
-**Note:**
-- Never commit your `.env` file to version control.
-- Only share `.env.example` with placeholder values.
 
 ## 📂 Project Structure
 
