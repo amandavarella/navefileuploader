@@ -1,1 +1,7 @@
 *.json
+*.plist
+*.log
+crontab.txt
+.env
+.env.*
+!.env.example
