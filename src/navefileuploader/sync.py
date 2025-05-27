@@ -2,13 +2,14 @@
 
 import requests
 import json
-from jira_data_masking import mask_json_file
+from .masking import mask_json_file
 import os
 from datetime import datetime
 import glob
 from dotenv import load_dotenv
 import gzip
 import io
+import sys
 
 # Load environment variables
 load_dotenv()
@@ -152,7 +153,7 @@ def main():
         for var in missing_vars:
             print(f"- {var}")
         print("\nPlease create a .env file with these variables. See .env.example for a template.")
-        return
+        sys.exit(1)
 
     # Clean up any existing JSON files
     cleanup_json_files()
@@ -166,7 +167,11 @@ def main():
     )
     
     # Process the data
-    processor.process_jira_data()
+    try:
+        processor.process_jira_data()
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        sys.exit(1)
 
 if __name__ == "__main__":
     main() 

@@ -1,8 +1,10 @@
-# NaveClean - JIRA Data Masking Tool
+# NaveFileUploader
+
+A Python package for masking and syncing JIRA data to Nave.
 
 ## 📝 Description
 
-This project provides two helper functions to mask sensitive data from JIRA before sending it to Nave:
+This project provides two main functionalities to mask sensitive data from JIRA before sending it to Nave:
 
 1. A local file masking function that processes Jira JSON files for manual upload through Nave's interface
 2. An automated processor that fetches data from JIRA, masks it, and uploads it directly through Nave's API
@@ -14,6 +16,63 @@ This project provides two helper functions to mask sensitive data from JIRA befo
 * Anonymises names in `"displayName"`
 * Replaces content of fields like `"goal"`, `"body"`, `"summary"`, and `"description"` with randomised text
 * Randomises `"fromString"` and `"toString"` for specific fields like `"assignee"`, `"Contributors"`, `"summary"`, and `"Attachment"`
+
+## 🚀 Quick Start
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/amandavarella/navefileuploader.git
+   cd navefileuploader
+   ```
+
+2. Create and activate a virtual environment:
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   ```
+
+3. Install the package in development mode:
+   ```bash
+   pip install -e .
+   ```
+
+4. Add the virtual environment's bin directory to your PATH (optional, but recommended):
+   ```bash
+   echo 'export PATH="$(pwd)/venv/bin:$PATH"' >> ~/.zshrc
+   source ~/.zshrc
+   ```
+
+### Usage
+
+After installation, you can use the command-line tools:
+
+```bash
+# Mask a JIRA JSON file
+nave-mask input.json output.json
+
+# Sync JIRA data to Nave
+nave-sync
+```
+
+Or use the Python API:
+
+```python
+from navefileuploader import mask_json_file, JiraProcessor
+
+# To mask a file
+mask_json_file("input.json", "output.json")
+
+# To sync data
+processor = JiraProcessor(
+    jira_username="your_username",
+    jira_api_token="your_token",
+    target_api_url="your_api_url",
+    target_api_key="your_api_key"
+)
+processor.process_jira_data()
+```
 
 ## ⚙️ Environment Configuration
 
@@ -41,92 +100,67 @@ Before running any scripts, create a `.env` file in the project root with your c
 - Never commit your `.env` file to version control.
 - Only share `.env.example` with placeholder values.
 
-## ▶️ Usage Modes
-
-### Mode 1: Local File Masking
-
-Use this mode when you have a Jira JSON file that you want to mask and upload manually through Nave's interface.
-
-#### Getting Your Jira JSON File
-
-To export issues with changelogs from Jira Cloud using their REST API, use the following format:
+## 📂 Project Structure
 
 ```
-https://<your-domain>.atlassian.net/rest/agile/1.0/board/<BOARD_ID>/issue?expand=changelog&startAt=0&maxResults=1000
+navefileuploader/
+├── src/                    # Source code directory
+│   └── navefileuploader/   # Main package directory
+│       ├── __init__.py     # Package initialization
+│       ├── masking.py      # Data masking functionality
+│       └── sync.py         # JIRA sync functionality
+├── tests/                  # Test files directory
+│   ├── __init__.py
+│   ├── test_masking.py
+│   └── test_sync.py
+├── examples/               # Example files
+│   └── issue.json         # Sample JIRA data
+├── docs/                   # Documentation
+│   └── README.md          # Detailed documentation
+├── .env.example           # Environment variables template
+├── .gitignore            # Git ignore file
+├── requirements.txt       # Project dependencies
+└── setup.py              # Package installation file
 ```
 
-* Replace `<your-domain>` with your company's Jira subdomain.
-* Replace `<BOARD_ID>` with the numeric ID of the Jira board.
+## 🧪 Running Tests
 
-For detailed information about the Jira JSON file format and how to properly extract data from JIRA, please refer to the [Nave documentation](https://getnave.com/blog/loading-data-to-nave/).
+To run the test suite:
 
-##### How to Find the Board ID
+```bash
+# Make sure you're in the virtual environment
+source venv/bin/activate
 
-1. Open your Jira board in a browser.
-2. Look at the URL — it should look something like this:
-   ```
-   https://company.atlassian.net/secure/RapidBoard.jspa?rapidView=18
-   ```
-3. The number after `rapidView=` is your **Board ID**.
+# Run tests
+pytest
 
-##### Save the file
-
-Save your Jira JSON input file as `issue.json` in the same folder as the script.
-
-#### Executing the file
-
-1. **Install Python 3** if you haven't already:
-   ```bash
-   python3 --version
-   ```
-
-2. **Run the script** from the terminal:
-   ```bash
-   python3 jira_data_masking.py
-   ```
-
-3. **Upload the output** file named `masked_issue.json` through Nave's interface.
-
-### Mode 2: Automated JIRA to Nave Processing
-
-This mode automatically fetches data from JIRA, masks it, and sends it directly to Nave through their API.
-
-1. **Install required dependencies**:
-   ```bash
-   pip install requests
-   ```
-
-2. **Run the processor**:
-   ```bash
-   python3 jira_data_sync.py
-   ```
-
-3. **Set up automation** (optional):
-   To run the script daily, add it to your crontab:
-   ```bash
-   crontab -e
-   ```
-   Add this line to run it daily at 1 AM:
-   ```
-   0 1 * * * /path/to/python3 /path/to/jira_data_sync.py
-   ```
-
-## 📂 File Structure
-
-```
-├── jira_data_masking.py  # Core masking functionality
-├── jira_data_sync.py     # Full JIRA to Nave integration script
-├── issue.json           # Example Jira JSON input file (for Mode 1)
-└── masked_issue.json    # Example output file (for Mode 1)
+# Run tests with coverage
+pytest --cov=navefileuploader
 ```
 
-## 🛠 Requirements
+## 🛠 Development
 
-* Python 3.6+
-* `requests` library (for Mode 2)
+1. Make sure you're in the virtual environment:
+   ```bash
+   source venv/bin/activate
+   ```
+
+2. Install development dependencies:
+   ```bash
+   pip install -e ".[dev]"
+   ```
+
+3. Run tests before committing:
+   ```bash
+   pytest
+   ```
 
 ## 📬 Questions?
 
 If you need to customise fields or behaviour:
-* For Mode 1: Modify the `mask_data()` function in `jira_data_masking.py`
-* For Mode 2: Adjust the configuration variables in `jira_data_sync.py`
+* For masking: Modify the `mask_data()` function in `src/navefileuploader/masking.py`
+* For syncing: Adjust the configuration variables in `src/navefileuploader/sync.py`
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details. 

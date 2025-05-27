@@ -4,6 +4,7 @@ import json
 import re
 import random
 import string
+import sys
 
 # Regex patterns
 EMAIL_REGEX = re.compile(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+")
@@ -76,6 +77,19 @@ def mask_json_file(input_path, output_path):
         json.dump(masked, f, indent=2)
     print(f"Masked file saved to: {output_path}")
 
-# Example usage
+def main():
+    if len(sys.argv) != 3:
+        print("Usage: nave-mask <input_file> <output_file>")
+        sys.exit(1)
+    
+    input_file = sys.argv[1]
+    output_file = sys.argv[2]
+    
+    try:
+        mask_json_file(input_file, output_file)
+    except Exception as e:
+        print(f"Error: {str(e)}")
+        sys.exit(1)
+
 if __name__ == "__main__":
-    mask_json_file("issue.json", "masked_issue.json") 
+    main() 
