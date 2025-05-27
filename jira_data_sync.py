@@ -2,7 +2,7 @@
 
 import requests
 import json
-from naveclean import mask_json_file
+from jira_data_masking import mask_json_file
 import os
 from datetime import datetime
 import glob

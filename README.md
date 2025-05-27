@@ -82,7 +82,7 @@ Save your Jira JSON input file as `issue.json` in the same folder as the script.
 
 2. **Run the script** from the terminal:
    ```bash
-   python3 naveclean.py
+   python3 jira_data_masking.py
    ```
 
 3. **Upload the output** file named `masked_issue.json` through Nave's interface.
@@ -98,7 +98,7 @@ This mode automatically fetches data from JIRA, masks it, and sends it directly 
 
 2. **Run the processor**:
    ```bash
-   python3 jira_processor.py
+   python3 jira_data_sync.py
    ```
 
 3. **Set up automation** (optional):
@@ -108,14 +108,14 @@ This mode automatically fetches data from JIRA, masks it, and sends it directly 
    ```
    Add this line to run it daily at 1 AM:
    ```
-   0 1 * * * /path/to/python3 /path/to/jira_processor.py
+   0 1 * * * /path/to/python3 /path/to/jira_data_sync.py
    ```
 
 ## 📂 File Structure
 
 ```
-├── naveclean.py          # Core masking functionality
-├── jira_processor.py     # Full JIRA to Nave integration script
+├── jira_data_masking.py  # Core masking functionality
+├── jira_data_sync.py     # Full JIRA to Nave integration script
 ├── issue.json           # Example Jira JSON input file (for Mode 1)
 └── masked_issue.json    # Example output file (for Mode 1)
 ```
@@ -128,5 +128,5 @@ This mode automatically fetches data from JIRA, masks it, and sends it directly 
 ## 📬 Questions?
 
 If you need to customise fields or behaviour:
-* For Mode 1: Modify the `mask_data()` function in `naveclean.py`
-* For Mode 2: Adjust the configuration variables in `jira_processor.py`
+* For Mode 1: Modify the `mask_data()` function in `jira_data_masking.py`
+* For Mode 2: Adjust the configuration variables in `jira_data_sync.py`
