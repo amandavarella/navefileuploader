@@ -9,6 +9,32 @@ This project provides two main functionalities to mask sensitive data from JIRA 
 1. A local file masking function that processes Jira JSON files for manual upload through Nave's interface
 2. An automated processor that fetches data from JIRA, masks it, and uploads it directly through Nave's API
 
+## 🔑 Getting Your Jira API Token
+
+Before you begin, you'll need to obtain a Jira API token. Here's how:
+
+1. Go to [Atlassian API Tokens](https://id.atlassian.com/manage-profile/security/api-tokens)
+2. Log in with your Atlassian account
+3. Click "Create API token"
+4. Give your token a label (e.g., "NaveFileUploader")
+5. Click "Create"
+6. Copy the token immediately - you won't be able to see it again!
+
+**Important:** Store this token securely. You'll need it for the environment configuration step.
+
+## 🔐 Getting Your Nave API Token and Dashboard ID
+
+You'll also need a Nave API token to use this package. To obtain one:
+1. Contact the Nave team
+2. Request an API token for the NaveFileUploader integration
+
+To find your dashboard ID:
+1. Go to your Nave dashboard in the browser
+2. Look at the URL: `https://file.getnave.com/dashboard/<your-dashboard-id>`
+3. The dashboard ID is the slug at the end of the URL
+
+**Important:** Keep these credentials secure and never share them publicly.
+
 ## 🔧 What It Does
 
 * Replaces all email addresses with fake ones
