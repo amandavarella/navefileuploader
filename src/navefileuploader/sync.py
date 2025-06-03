@@ -62,11 +62,12 @@ class JiraProcessor:
         
         return response.json()
     
-    def save_to_file(self, data, filename):
-        """Save data to a JSON file"""
-        with open(filename, 'w') as f:
-            json.dump(data, f, indent=2)
-        return filename
+    def save_to_file(self, data, file_path):
+        """Save data to a JSON file."""
+        with open(file_path, 'w') as f:
+            json_str = json.dumps(data, indent=2)
+            f.write(json_str)
+        return file_path
     
     def send_to_target_api(self, file_path):
         """Send the masked file to the target API"""

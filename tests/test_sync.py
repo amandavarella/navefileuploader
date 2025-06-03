@@ -40,11 +40,14 @@ def test_save_to_file(processor):
         
         # Verify the result
         assert result == "test.json"
-        mock_file.write.assert_called_once()
+        # Verify that write was called with the expected JSON string
+        expected_json = '{\n  "test": "data"\n}'
+        mock_file.write.assert_called_with(expected_json)
 
 def test_send_to_target_api(processor):
     with patch('requests.post') as mock_post, \
-         patch('builtins.open', create=True) as mock_open:
+         patch('builtins.open', create=True) as mock_open, \
+         patch('os.path.getsize') as mock_getsize:
         
         # Mock the response
         mock_response = MagicMock()
@@ -55,6 +58,9 @@ def test_send_to_target_api(processor):
         mock_file = MagicMock()
         mock_open.return_value.__enter__.return_value = mock_file
         
+        # Mock the file size
+        mock_getsize.return_value = 1024
+
         # Call the method
         result = processor.send_to_target_api("test.json")
         
