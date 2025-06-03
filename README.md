@@ -211,15 +211,4 @@ pytest --cov=navefileuploader
 3. Run tests before committing:
    ```bash
    pytest
-   ```
-
-## 📬 Questions?
-
-If you need to customise fields or behaviour:
-* For masking: Modify the `mask_data()` function in `src/navefileuploader/masking.py`
-* For syncing: Adjust the configuration variables in `src/navefileuploader/sync.py`
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
+   ``` 
