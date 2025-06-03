@@ -25,6 +25,7 @@ Before you begin, you'll need to obtain a Jira API token. Here's how:
 ## 🔐 Getting Your Nave API Token and Dashboard ID
 
 You'll also need a Nave API token to use this package. To obtain one:
+
 1. Contact the Nave team
 2. Request an API token for the NaveFileUploader integration
 
@@ -35,7 +36,7 @@ To find your dashboard ID:
 
 **Important:** Keep these credentials secure and never share them publicly.
 
-## 🔧 What It Does
+## 🔧 What the masking feature does
 
 * Replaces all email addresses with fake ones
 * Masks all URLs (http/https) with randomised placeholders
@@ -98,23 +99,44 @@ Before running any scripts, create a `.env` file in the project root with your c
 
 ### Usage
 
-After installation, you can use the command-line tools:
+#### 1. Local File Masking
 
+This functionality processes Jira JSON files for manual upload through Nave's interface.
+
+To get your JIRA data:
+1. Go to your JIRA board in the browser
+2. In your browser, go to File > Save Page As
+3. Save the file as `issue.json` in the root directory of this app
+
+Then run the command-line tool:
 ```bash
-# Mask a JIRA JSON file
-nave-mask input.json output.json
+nave-mask
+```
 
-# Sync JIRA data to Nave
+The tool will:
+1. Look for `issue.json` in the current directory
+2. Create a masked version as `masked_issue.json` in the same directory
+
+Or using the Python API:
+```python
+from navefileuploader import mask_json_file
+
+# To mask a file
+mask_json_file("issue.json", "masked_issue.json")
+```
+
+#### 2. Automated JIRA Sync
+
+This functionality fetches data from JIRA, masks it, and uploads it directly through Nave's API.
+
+Using the command-line tool:
+```bash
 nave-sync
 ```
 
-Or use the Python API:
-
+Or using the Python API:
 ```python
-from navefileuploader import mask_json_file, JiraProcessor
-
-# To mask a file
-mask_json_file("input.json", "output.json")
+from navefileuploader import JiraProcessor
 
 # To sync data
 processor = JiraProcessor(
@@ -189,4 +211,4 @@ If you need to customise fields or behaviour:
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+This project is licensed under the MIT License - see the LICENSE file for details.
