@@ -104,7 +104,7 @@ Before running any scripts, create a `.env` file in the project root with your c
 This functionality processes Jira JSON files for manual upload through Nave's interface.
 
 To get your JIRA data:
-1. Go to your JIRA board in the browser
+1. Go to this address: `https://<your-company>.atlassian.net/rest/agile/1.0/board/<your-board-id>/issue?expand=changelog&startAt=0&maxResults=1000`
 2. In your browser, go to File > Save Page As
 3. Save the file as `issue.json` in the root directory of this app
 
@@ -116,6 +116,9 @@ nave-mask
 The tool will:
 1. Look for `issue.json` in the current directory
 2. Create a masked version as `masked_issue.json` in the same directory
+
+After the tool completes:
+Go to your Nave's dashboard: `https://file.getnave.com/update/<your-dashboard-id>` and upload the `masked_issue.json`
 
 Or using the Python API:
 ```python
