@@ -52,7 +52,7 @@ Use this mode when you have a Jira JSON file that you want to mask and upload ma
 To export issues with changelogs from Jira Cloud using their REST API, use the following format:
 
 ```
-https://<your-domain>.atlassian.net/rest/agile/1.0/board/<BOARD_ID>/issue?expand=changelog&startAt=0&maxResults=1000
+https://<your-domain>.atlassian.net/rest/agile/1.0/board/<BOARD_ID>/issue?expand=changelog&startAt=0&maxResults=500&jql=ORDER+BY+updated+DESC
 ```
 
 * Replace `<your-domain>` with your company's Jira subdomain.

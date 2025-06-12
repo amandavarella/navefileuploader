@@ -53,7 +53,7 @@ class JiraProcessor:
         params = {
             'expand': 'changelog',
             'startAt': 0,
-            'maxResults': 1000,
+            'maxResults': 500,
             'jql': 'ORDER BY updated DESC'
         }
         
